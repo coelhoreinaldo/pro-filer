@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pro-filer" # TODO: ALTERAR
+version = "0.1.0"
+description = "" # TODO: PREENCHER
+readme = "readme.md"
+requires-python = ">=3.8"
+dependencies = ["rich==13.4.1", "typer==0.9.0", "shellingham==1.5.0.post1"]
+
+[project.scripts]
+pro-filer = "pro_filer.__main__:typer_app"
+
+[tool.setuptools]
+py-modules = ['pro_filer']
+
+[tool.pytest.ini_options]
+minversion = "7.3"
+addopts = "-vv -s --continue-on-collection-errors"
+testpaths = ["tests",]
+accept_xfail = true
+filterwarnings = [
+    "ignore::pytest.PytestDeprecationWarning",
+]
+
+
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[project.optional-dependencies]
+test = [
+    "pytest-dependency@git+https://github.com/betrybe/pytest-dependency@984f9d7d083870d091e8862a9b9c33fdf815b8d9",
+    "faker==18.9.0",
+    "pytest==7.3.1",
+    "pytest-cov==4.1.0",
+    "pytest-json==0.4.0",
+]
+alltest = [
+    "pro_filer[test]",
+    "coverage==7.2.6",
+    "iniconfig==2.0.0",
+    "packaging==23.1",
+    "pluggy==1.0.0",
+]
+dev = [
+    "pro_filer[test]",
+    "black==23.3.0",
+    "flake8==6.0.0",
+    "isort==5.12.0",
+]
+alldev = [
+    "pro_filer[dev]",
+    "pro_filer[alltest]",
+    "click==8.1.3",
+    "mccabe==0.7.0",
+    "pathspec==0.11.1",
+    "platformdirs==3.5.1",
+    "pycodestyle==2.10.0",
+    "pyflakes==3.0.1",
+]
